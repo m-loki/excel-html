@@ -68,6 +68,7 @@ function formatDate(dateString) {
 }
 
 function generateEmailTemplate(jsonData) {
+  // console.log(jsonData);
   let emailTemplate = `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -150,7 +151,8 @@ function generateEmailTemplate(jsonData) {
           competitorArticle.article_description.split(/\r?\n/);
 
         descriptionPoints.forEach((item) => {
-          descriptionListItems = `<li>${item}</li>`;
+          descriptionListItems += `<li>${item}</li>`;
+          console.log(descriptionListItems);
         });
 
         articleTitle += `
@@ -160,11 +162,14 @@ function generateEmailTemplate(jsonData) {
          <td style="margin: 0; padding: 10px 0 0 20px">
         <p style="font-size:14px; font-family:'Open Sans', Arial, Helvetica, sans-serif; line-height:130%"><a href="${competitorArticle.article_link}" style="color:#c60c35" target="_blank">${competitorArticle.article_title}</a>
         &nbsp;&nbsp;${competitorArticle.article_date}
+        </p>
         <ul style="padding: 10px 0 20px 20px; font-size:14px; font-family:'Open Sans', Arial, Helvetica, sans-serif; line-height:130%">
         ${descriptionListItems}
-        </ul></p>
+        </ul>
         </td>
         </tr>`;
+
+        descriptionListItems = "";
       });
     } else {
       if (item.organisation_name && item.organisation_name.trim() !== "") {
@@ -175,6 +180,7 @@ function generateEmailTemplate(jsonData) {
         const descriptionPoints = item.article_description.split(/\r?\n/);
         descriptionPoints.forEach((point) => {
           descriptionListItems += `<li>${point}</li>`;
+          console.log(descriptionListItems);
         });
       }
 
